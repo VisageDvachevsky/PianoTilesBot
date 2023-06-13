@@ -3,6 +3,7 @@
 This project is a bot designed to automatically play the game Piano Tiles 2. Piano Tiles 2 is a popular mobile game where players need to tap on piano tiles that appear on the screen in sync with the music. The bot utilizes computer vision and automation to detect and tap the tiles, ensuring accuracy and high-speed gameplay.
 
 Project Features:
+
 	Tile Detection: The bot employs computer vision using the OpenCV library to process screen captures and identify the locations of active piano tiles.
 	Action Automation: After detecting the tiles, the bot uses the PyAutoGUI library to automatically move and click the mouse to tap the tiles at the right moments.
 	Multithreading: The bot utilizes multithreading for parallel execution of tile detection and automated tapping, enabling fast response times and near real-time gameplay.
