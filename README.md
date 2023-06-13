@@ -5,7 +5,6 @@ This project is a bot designed to automatically play the game Piano Tiles 2. Pia
 Project Features:
 
 	Tile Detection: 
-	
 		The bot employs computer vision using the OpenCV library to process screen captures and identify the locations of active piano tiles.
 		Action Automation: After detecting the tiles, the bot uses the PyAutoGUI library to automatically move and click the mouse to tap the tiles at the right moments.
 		Multithreading: The bot utilizes multithreading for parallel execution of tile detection and automated tapping, enabling fast response times and near real-time gameplay.
