@@ -20,7 +20,7 @@ Project Features:
 Installation and Usage Instructions:
 
 	Clone the Repository:
-		git clone <>
+		git clone <https://github.com/VisageDvachevsky/PianoTilesBot>
 
 	Install Dependencies:
 		pip install opencv-python pyautogui
