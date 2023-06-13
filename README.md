@@ -8,7 +8,8 @@ Project Features:
 	Multithreading: The bot utilizes multithreading for parallel execution of tile detection and automated tapping, enabling fast response times and near real-time gameplay.
 	Game Area Customization: Users can configure the coordinates and size of the game area where the piano tiles are located to ensure accurate tile recognition and tapping.
 	Flexibility and Extensibility: The project provides a flexible architecture that allows for easy modifications and expansion of the bot's functionality.
-	Technologies and Tools Used:
+
+Technologies and Tools Used:
 
 	Python: The programming language used to implement the bot.
 	OpenCV: The computer vision library used for tile detection on the screen.
