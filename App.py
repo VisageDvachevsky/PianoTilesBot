@@ -1,14 +1,27 @@
 import cv2
 import numpy as np
-import pyautogui
 import time
 import threading
 from PIL import ImageGrab
+import ctypes
+import pyautogui
 
 ZONE_X = 550
 ZONE_Y = 170
 ZONE_WIDTH = 700
 ZONE_HEIGHT = 700
+
+def Move(x, y):
+    user32 = ctypes.windll.user32
+    user32.SetCursorPos(x, y)
+
+def ClickMouse():
+    MOUSEEVENTF_LEFTDOWN = 0x0002
+    MOUSEEVENTF_LEFTUP = 0x0004
+
+    user32 = ctypes.windll.user32
+    user32.mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
+    user32.mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
 
 def detect_black_tile(image):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -26,7 +39,6 @@ def is_cursor_on_black(x, y):
     return pixel == (0, 0, 0)
 
 def tile_detector():
-    pyautogui.FAILSAFE = False
     while not exit_flag.is_set():
         screenshot = ImageGrab.grab()
         image = np.array(screenshot)
@@ -46,8 +58,8 @@ def tile_detector():
             cursor_y = ZONE_Y + int(bottom_y)
 
             if is_cursor_on_black(cursor_x, cursor_y):
-                pyautogui.moveTo(cursor_x, cursor_y)
-                pyautogui.click()
+                Move(cursor_x, cursor_y)
+                ClickMouse()
 
 exit_flag = threading.Event()
 exit_flag.clear()
@@ -56,3 +68,6 @@ time.sleep(2)
 
 thread = threading.Thread(target=tile_detector)
 thread.start()
+
+
+ 
