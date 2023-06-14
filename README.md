@@ -17,6 +17,7 @@ Technologies and Tools Used:
 	OpenCV: The computer vision library used for tile detection on the screen.
 	PyAutoGUI: The library used for mouse and keyboard automation.
 	Multi-threading: Multithreading for parallel execution of tile detection and automated tapping.
+	Win32API: Python library for low-level Windows API access, enabling tasks like mouse/keyboard control and window manipulation.
 	GitHub: The platform used for storing and managing the project's source code.
 	Installation and Usage instructions can be found in README
 
