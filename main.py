@@ -37,23 +37,22 @@ class TileDetector:
 
     def is_cursor_on_black(self, x, y):
         if self.cached_screenshot is not None:
-            pixel = self.cached_screenshot[y, x]
+            pixel = self.cached_screenshot[y - self.zone_y, x - self.zone_x]
+
         else:
-            screenshot = ImageGrab.grab()
+            screenshot = ImageGrab.grab(bbox=(self.zone_x, self.zone_y, self.zone_x + self.zone_width, self.zone_y + self.zone_height))
             pixel = screenshot.getpixel((x, y))
         return np.all(pixel == (0, 0, 0))
 
     def capture_screenshot(self):
-        screenshot = ImageGrab.grab()
+        screenshot = ImageGrab.grab(bbox=(self.zone_x, self.zone_y, self.zone_x + self.zone_width, self.zone_y + self.zone_height))
         self.cached_screenshot = np.array(screenshot)
 
     def tile_detector(self):
         while not self.exit_flag.is_set():
             image = self.cached_screenshot
 
-            zone_image = image[self.zone_y:self.zone_y + self.zone_height, self.zone_x:self.zone_x + self.zone_width]
-
-            is_black_tile, contour = self.detect_black_tile(zone_image)
+            is_black_tile, contour = self.detect_black_tile(image)
 
             if is_black_tile:
                 rect = cv2.minAreaRect(contour)
@@ -77,9 +76,7 @@ class TileDetector:
             self.capture_screenshot()
             image = self.cached_screenshot
 
-            zone_image = image[self.zone_y:self.zone_y + self.zone_height, self.zone_x:self.zone_x + self.zone_width]
-
-            is_black_tile, contour = self.detect_black_tile(zone_image)
+            is_black_tile, contour = self.detect_black_tile(image)
 
             if is_black_tile:
                 rect = cv2.minAreaRect(contour)
