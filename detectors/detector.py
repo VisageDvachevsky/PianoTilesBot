@@ -22,9 +22,10 @@ class Detector:
         return None
 
     def __detect_black_tile(self, image):
-        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        _, binary = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY)
+        binary = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        _, binary = cv2.threshold(binary, 1, 255, cv2.THRESH_BINARY)
         return self.__get_black_pos(binary)
+
 
     def __get_screenshot(self):
         screenshot = self.__sct.grab(self.__sct.monitors[1])

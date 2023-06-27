@@ -1,0 +1,2 @@
+{"action_status": "started", "timestamp": 1687899581.987152, "task_uuid": "3b7a631a-fcfb-4b12-b413-a06473a2f528", "action_type": "__main__.main", "task_level": [1]}
+{"exception": "builtins.TypeError", "reason": "Detector() missing 1 required positional argument: 'self'", "action_status": "failed", "timestamp": 1687899581.9881542, "task_uuid": "3b7a631a-fcfb-4b12-b413-a06473a2f528", "action_type": "__main__.main", "task_level": [2]}

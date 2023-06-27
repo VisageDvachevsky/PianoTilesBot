@@ -12,15 +12,11 @@ def main():
 
     exit_flag = False
     while not exit_flag:
-        start_time = process_time()
-
         pos = detector.get_tile_pos()
 
         if pos:
             mouse_controller.move(pos[0], pos[1])
             mouse_controller.click()
-
-        end_time = process_time()
 
         if keyboard.is_pressed('q'):
             exit_flag = True
@@ -28,3 +24,4 @@ def main():
 if __name__ == '__main__':
     wait_until_start()
     main()
+
