@@ -1,7 +1,4 @@
 import keyboard
-import time
-import threading
-from time import process_time
 from detectors.detector import Detector
 from controllers.mouse_controller import MouseController
 from utils import wait_until_start

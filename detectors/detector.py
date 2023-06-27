@@ -11,8 +11,9 @@ class Detector:
     SPEED_OFFSET = 100
 
     def __init__(self):
-        self.__sct = mss.mss(with_cursor=False)
+        self.__sct = mss.mss()
         self.__kernel = np.zeros((self.CHECK_REGION_SIZE, self.CHECK_REGION_SIZE))
+        self.__monitor = {"top": self.ZONE_Y, "left": self.ZONE_X, "width": self.ZONE_WIDTH, "height": self.ZONE_HEIGHT}
 
     def __get_black_pos(self, binary):
         for y in range(self.ZONE_HEIGHT - self.CHECK_REGION_SIZE, 0, -30):
@@ -26,13 +27,10 @@ class Detector:
         _, binary = cv2.threshold(binary, 1, 255, cv2.THRESH_BINARY)
         return self.__get_black_pos(binary)
 
-
     def __get_screenshot(self):
-        screenshot = self.__sct.grab(self.__sct.monitors[1])
+        screenshot = self.__sct.grab(self.__monitor)
         image = np.array(screenshot)
-        zone_image = image[self.ZONE_Y:self.ZONE_Y + self.ZONE_HEIGHT,
-                           self.ZONE_X:self.ZONE_X + self.ZONE_WIDTH]
-        return zone_image
+        return image
 
     def get_tile_pos(self):
         screenshot = self.__get_screenshot()
