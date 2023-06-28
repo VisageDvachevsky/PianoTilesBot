@@ -12,14 +12,16 @@ class Detector:
 
     def __init__(self):
         self.__sct = mss.mss()
-        self.__kernel = np.zeros((self.CHECK_REGION_SIZE, self.CHECK_REGION_SIZE))
+        self.__kernel = np.zeros((self.CHECK_REGION_SIZE, self.CHECK_REGION_SIZE), dtype=np.uint8)
         self.__monitor = {"top": self.ZONE_Y, "left": self.ZONE_X, "width": self.ZONE_WIDTH, "height": self.ZONE_HEIGHT}
+        self.__calibration_offset = (self.ZONE_X, self.ZONE_Y + self.SPEED_OFFSET)
 
     def __get_black_pos(self, binary):
-        for y in range(self.ZONE_HEIGHT - self.CHECK_REGION_SIZE, 0, -30):
-            for x in range(0, self.ZONE_WIDTH - self.CHECK_REGION_SIZE, 30):
-                if (binary[y:y + self.CHECK_REGION_SIZE, x:x + self.CHECK_REGION_SIZE] == self.__kernel).all():
-                    return (x + self.CHECK_REGION_SIZE // 2, y + self.CHECK_REGION_SIZE // 2)
+        region_size = self.CHECK_REGION_SIZE
+        for y in range(self.ZONE_HEIGHT - region_size, 0, -30):
+            for x in range(0, self.ZONE_WIDTH - region_size, 30):
+                if np.array_equal(binary[y:y + region_size, x:x + region_size], self.__kernel):
+                    return (x + region_size // 2, y + region_size // 2)
         return None
 
     def __detect_black_tile(self, image):
@@ -38,7 +40,7 @@ class Detector:
         if not zone_position:
             return None
 
-        cursor_x = self.ZONE_X + zone_position[0]
-        cursor_y = self.ZONE_Y + zone_position[1] + self.SPEED_OFFSET
+        cursor_x = np.add(self.__calibration_offset[0], zone_position[0])
+        cursor_y = np.add(self.__calibration_offset[1], zone_position[1])
 
         return cursor_x, cursor_y
