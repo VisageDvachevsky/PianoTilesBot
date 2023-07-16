@@ -15,11 +15,13 @@ class Detector:
         self.__kernel = np.zeros((self.CHECK_REGION_SIZE, self.CHECK_REGION_SIZE), dtype=np.uint8)
         self.__monitor = {"top": self.ZONE_Y, "left": self.ZONE_X, "width": self.ZONE_WIDTH, "height": self.ZONE_HEIGHT}
         self.__calibration_offset = (self.ZONE_X, self.ZONE_Y + self.SPEED_OFFSET)
+        self.__y_range = np.arange(ZONE_HEIGHT - CHECK_REGION_SIZE, 0, -30)
+        self.__x_range = np.arange(0, ZONE_WIDTH - CHECK_REGION_SIZE, 30)
 
-    def __get_black_pos(self, binary):
-        region_size = self.CHECK_REGION_SIZE
-        for y in range(self.ZONE_HEIGHT - region_size, 0, -30):
-            for x in range(0, self.ZONE_WIDTH - region_size, 30):
+    def __get_black_pos(self, binary, y_range, x_range):
+        region_size = CHECK_REGION_SIZE
+        for y in y_range:
+            for x in x_range:
                 if np.array_equal(binary[y:y + region_size, x:x + region_size], self.__kernel):
                     return (x + region_size // 2, y + region_size // 2)
         return None
@@ -27,7 +29,7 @@ class Detector:
     def __detect_black_tile(self, image):
         binary = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         _, binary = cv2.threshold(binary, 1, 255, cv2.THRESH_BINARY)
-        return self.__get_black_pos(binary)
+        return self.__get_black_pos(binary, self.__y_range, self.__x_range)
 
     def __get_screenshot(self):
         screenshot = self.__sct.grab(self.__monitor)
