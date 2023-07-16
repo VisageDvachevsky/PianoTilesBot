@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 import mss
-import numba
 
 class Detector:
     ZONE_X = 550
@@ -19,7 +18,6 @@ class Detector:
         self.__y_range = np.arange(Detector.ZONE_HEIGHT - self.CHECK_REGION_SIZE, 0, -30)
         self.__x_range = np.arange(0, self.ZONE_WIDTH - self.CHECK_REGION_SIZE, 30)
 
-    @numba.jit
     def __get_black_pos(self, binary, y_range, x_range):
         region_size = self.CHECK_REGION_SIZE
         for y in y_range:
@@ -28,7 +26,6 @@ class Detector:
                     return (x + region_size // 2, y + region_size // 2)
         return None
 
-    @numba.jit
     def __detect_black_tile(self, image):
         binary = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         _, binary = cv2.threshold(binary, 1, 255, cv2.THRESH_BINARY)
@@ -39,7 +36,6 @@ class Detector:
         image = np.array(screenshot)
         return image
 
-    @numba.jit
     def get_tile_pos(self):
         screenshot = self.__get_screenshot()
         zone_position = self.__detect_black_tile(screenshot)
