@@ -6,7 +6,6 @@ class MouseController:
 
     def move(self, x, y):
         SetCursorPos((x, y))
-
     def click(self):
         mouse_event(self.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
         mouse_event(self.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
