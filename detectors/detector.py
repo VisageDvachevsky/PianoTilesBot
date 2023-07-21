@@ -42,7 +42,8 @@ class Detector:
         if not zone_position:
             return None
 
-        cursor_x = np.add(self.__calibration_offset[0], zone_position[0])
-        cursor_y = np.add(self.__calibration_offset[1], zone_position[1])
+        cursor_x = np.add(self.__calibration_offset[0], zone_position[0]).astype(int).item()
+        cursor_y = np.add(self.__calibration_offset[1], zone_position[1]).astype(int).item()
+
 
         return cursor_x, cursor_y
