@@ -15,7 +15,7 @@ def main():
             mouse_controller.move(pos[0], pos[1])
             mouse_controller.click()
 
-        if keyboard.is_pressed('q'):
+        if keyboard.is_pressed('q'): 
             exit_flag = True
 
 if __name__ == '__main__':
