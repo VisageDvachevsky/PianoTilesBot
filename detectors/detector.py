@@ -3,13 +3,13 @@ import numpy as np
 import mss
 
 class Detector:
-    ZONE_X = 550
+    ZONE_X = 490
     ZONE_Y = 300
-    ZONE_WIDTH = 700
+    ZONE_WIDTH = 570
     ZONE_HEIGHT = 600
     CHECK_REGION_SIZE = 70
     SPEED_OFFSET = 100
-
+    
     def __init__(self):
         self.__sct = mss.mss()
         self.__kernel = np.zeros((self.CHECK_REGION_SIZE, self.CHECK_REGION_SIZE), dtype=np.uint8)
