@@ -6,7 +6,7 @@ from utils import wait_until_start
 def main():
     detector = Detector()
     mouse_controller = MouseController()
-
+ 
     exit_flag = False
     while not exit_flag:
         pos = detector.get_tile_pos()
